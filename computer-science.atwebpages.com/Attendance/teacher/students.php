@@ -87,7 +87,7 @@ if (!in_array($_SESSION['role'], $allowedroles)) {
 
     if(isset($_POST['sr_btn'])){
      
-     $srbatch = $_POST['sr_batch'];
+     $srbatch =  mysqli_real_escape_string($con,$_POST['sr_batch']);
      $i=0;
      
      $all_query = mysqli_query($con,"select * from students where students.st_batch = '$srbatch' order by st_id asc ");
