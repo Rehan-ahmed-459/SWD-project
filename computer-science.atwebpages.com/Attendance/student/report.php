@@ -3,9 +3,17 @@
 ob_start();
 session_start();
 
-if(!$_SESSION['authorized'] && $_SESSION['authorized'] !=TRUE)
-{
+if (!isset($_SESSION['authorized']) || $_SESSION['authorized'] !== true || !isset($_SESSION['role'])) {
   header('location: ../index.php');
+  exit();
+}
+
+// check for specified roles
+$allowedroles = ['student']; 
+if (!in_array($_SESSION['role'], $allowedroles)) {
+  // if user does not have the required role
+  header('location: ../index.php');
+  exit();
 }
 ?>
 <?php include('connect.php');?>
