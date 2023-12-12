@@ -111,10 +111,9 @@ if (!in_array($_SESSION['role'], $allowedroles)) {
    <?php
 
 if(isset($_POST['sr_btn'])){
-    $reg_no=$_POST['reg_no'];
+    $reg_no=mysqli_real_escape_string($conn,$_POST['reg_no']);
    
-    // $single = mysqli_query($conn,"select stat_id,count(*) as countP from attendance where attendance.stat_id='$sr_id' and attendance.course = '$course' and attendance.st_status='Present'");
-    //   $singleT= mysqli_query($conn,"select count(*) as countT from attendance where attendance.stat_id='$sr_id' and attendance.course = '$course'");
+    
     $query=mysqli_query($conn,"SELECT COUNT(*) AS count from take_attendance where reg_no='$reg_no' and status='Present'");
     $que=mysqli_query($conn,"SELECT COUNT(*) AS count from take_attendance where reg_no='$reg_no' and status='Absent'");
     $abs=mysqli_fetch_array($que);
@@ -145,16 +144,17 @@ if(isset($_POST['sr_btn'])){
       ?>
 
       <tr>
-          <td><?php echo $data['reg_no']; ?></td>
+         <td><?php echo htmlspecialchars($data['reg_no']); ?></td>
           
-          <td><?php echo $data['name']; ?></td>
-          <td><?php echo $data['course']; ?></td>
-          <td><?php echo $data['batch']; ?></td>
-          <td><?php echo $data['year']; ?></td>
+          <td><?php echo htmlspecialchars($data['name']); ?></td>
+          <td><?php echo htmlspecialchars($data['course']); ?></td>
+          <td><?php echo htmlspecialchars($data['batch']); ?></td>
+          <td><?php echo htmlspecialchars($data['year']);?></td>
           
          
           <td>
-              <label><?php echo $data['status'] ?></label>
+              <label><?php echo htmlspecialchars($data['status']); ?></label>
+              
               
               
               
