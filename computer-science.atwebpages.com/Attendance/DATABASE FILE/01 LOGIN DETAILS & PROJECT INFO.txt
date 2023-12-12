@@ -1,6 +1,5 @@
 **Database Name: attmgsystem**
 
-**Developed by Tushar Garg**
 
 **Recommended PHP Version 5.6.3**
 
