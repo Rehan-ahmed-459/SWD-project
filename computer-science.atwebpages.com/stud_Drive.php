@@ -1,6 +1,7 @@
 <?php 
-include 'session.php';
+// error_reporting(0);
 ob_start();
+include 'session.php';
 sessionStart();
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -21,31 +22,35 @@ if (isset($_POST['submit'])) {
     if (empty($semester)) {
         $errors['Semester-field'] = "<div class='error'>Semester is required*</div>";
     } else {
-        //checking file types
+        // File type validation
         $allowedFileTypes = ['pdf', 'jpeg', 'jpg', 'png'];
-        $fileExtension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+        $fileExtension = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
 
-        if (!in_array(strtolower($fileExtension), $allowedFileTypes)) {
-            $errors['file-type'] = 'Invalid file type. Only PDF, JPEG, and PNG files are allowed.';
+        if (!in_array($fileExtension, $allowedFileTypes)) {
+            $errors['file-type'] = 'Invalid file type. Only PDF, JPEG, and PNG files are allowed.<a href="./stud_Drive.php">Go back</a>';
+            echoErrorAndExit($errors['file-type']);
         }
 
-        //checking file size
+        // File size validation (max 2 MB)
         $maxFileSize = 2 * 1024 * 1024; // 2 MB
 
         if ($_FILES['file']['size'] > $maxFileSize) {
             $errors['file-size'] = 'File size exceeds the limit (2 MB).';
+            echoErrorAndExit($errors['file-size']);
         }
-        $uniquefilename = md5(uniqid(rand(), true)) . '_' . time() . '.' . $fileExtension;//generating random file name 
+
+        // Secure file name
+        $uniqueFileName = md5(uniqid(rand(), true)) . '_' . time() . '.' . $fileExtension;
 
         // Move file to secure directory
-        $uploadDirectory = '/path/to/secure/directory/';
+        $uploadDirectory = './results/';
 
-        if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadDirectory . $uniquegilename)) {
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadDirectory . $uniqueFileName)) {
             // Insert into database using prepared statement
             $sql = "INSERT INTO list_files (id, username, Semester, file_name, action, dt) VALUES (NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
             $stmt = mysqli_prepare($conn, $sql);
 
-            mysqli_stmt_bind_param($stmt, "ssss", $username, $semester, $uniquefilename, $header);
+            mysqli_stmt_bind_param($stmt, "ssss", $username, $semester, $uniqueFileName, $header);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
 
@@ -57,10 +62,16 @@ if (isset($_POST['submit'])) {
                 </div>";
         } else {
             $errors['upload-error'] = 'Error uploading the file. Please try again.';
+            echoErrorAndExit($errors['upload-error']);
         }
     }
 }
-  
+
+
+function echoErrorAndExit($errorMessage) {
+    echo $errorMessage;
+    exit();
+}
 
 ?>
 

@@ -2,12 +2,12 @@
 ob_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-session_start();
+
 require "dbconnect.php";
 $email = "";
 $name = "";
 $errors = array();
-session_regenerate_id(false);
+
 
 if(isset($_POST['check-email'])){
     $email = mysqli_real_escape_string($conn, test_input($_POST['email']));
@@ -26,33 +26,8 @@ if(isset($_POST['check-email'])){
             $header .="MIME-Version: TheNewCollege " ."\r\n";
             $header .="Content-type:text/html;charset=UTF-8"."\r\n";
             $mail = mail($to,$subject,$Message,$header);
-// $mail = new PHPMailer(true);
 
-// try {
-// 	$mail->SMTPDebug = 2;									
-// 	$mail->isSMTP();											
-// 	$mail->Host	 = 'smtp.gmail.com;';					
-// 	$mail->SMTPAuth = true;							
-// 	$mail->Username = 'tonhan549@gmail.com';				
-// 	$mail->Password = 'sujdkkqqwzqkshlu';						
-// 	$mail->SMTPSecure = 'tls';							
-// 	$mail->Port	 = 587;
 
-// 	$mail->setFrom('tonhan549@gmail.com', 'The New College');		
-// 	$mail->addAddress("$email");
-// 	$mail->addAddress("$email", "$name");
-	
-// 	$mail->isHTML(true);								
-// 	$mail->Subject = 'Password Reset Code';
-// 	$mail->Body = "<center><img src='https://thenewcollege.edu.in/images/logo%20png%20bgm.png' height='100px' width='100px'/></center><br><b>Your OTP for Password Reset is</b>&nbsp;$code";
-// 	$mail->AltBody = 'nothing';
-// 	$mail->send();
-// 	echo "Mail has been sent successfully!";
-       
-    
-// } catch (Exception $e) {
-// 	echo "Message could not be sent. Mailer Error";
-// }
     
     if($mail){
                 $info = "We've sent a passwrod reset otp to your email - $email";
