@@ -2,7 +2,8 @@
 error_reporting(0);
 
 ob_start();
-session_start();
+include "../../session.php";
+sessionStart();
 
 if(!$_SESSION['authorized'] && $_SESSION['authorized'] ===TRUE)
 {

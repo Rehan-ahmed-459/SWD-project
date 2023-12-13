@@ -1,7 +1,8 @@
   <?php
 
   ob_start();
-  session_start();
+  include "../../session.php";
+  sessionStart();
 
   //checking if the session is valid
   if (!isset($_SESSION['authorized']) || $_SESSION['authorized'] !== true || !isset($_SESSION['role'])) {

@@ -1,5 +1,6 @@
 <?php
 $err = "";
+
 include('connect.php');
 if (isset($_POST['login'])) {
 	//start of try block

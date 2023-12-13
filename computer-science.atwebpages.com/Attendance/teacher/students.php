@@ -1,7 +1,8 @@
 <?php
 
 ob_start();
-session_start();
+include "../../session.php";
+sessionStart();
 
 if (!isset($_SESSION['authorized']) || $_SESSION['authorized'] !== true || !isset($_SESSION['role'])) {
   header('location: ../index.php');

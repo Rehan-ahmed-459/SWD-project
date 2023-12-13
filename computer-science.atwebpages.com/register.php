@@ -153,25 +153,7 @@ elseif(username_exists($username,$conn)){
 		
 	if($result){
 
-	// $mail->SMTPDebug = 2;									
-	// $mail->isSMTP();											
-	// $mail->Host	 = 'smtp.gmail.com;';					
-	// $mail->SMTPAuth = true;							
-	// $mail->Username = 'tonhan549@gmail.com';				
-	// $mail->Password = 'sujdkkqqwzqkshlu';						
-	// $mail->SMTPSecure = 'tls';							
-	// $mail->Port	 = 587;
-
-	// $mail->setFrom('tonhan549@gmail.com', 'Noob-Hacker');		
-	// $mail->addAddress("$email");
-	// $mail->addAddress("$email", "$name");
 	
-	// $mail->isHTML(true);								
-	// $mail->Subject = 'Verify Your Email-TheNewCollege';
-	// $mail->Body = "<center><img src='https://thenewcollege.edu.in/images/logo%20png%20bgm.png' height='100px' width='100px'/></center><br><b>Your OTP to Verify Email is</b>&nbsp;$code<hr>OTP will expire in 15 mins...";
-	// $mail->AltBody = 'nothing';
-	// $mail->send();
-	// echo "Mail has been sent successfully!";
 	$to=$email;
             $subject='Password Reset Code';
             $Message="<center><img src='https://thenewcollege.edu.in/images/logo%20png%20bgm.png' height='100px' width='100px'/></center><br><b>Your OTP Verification Code is</b>&nbsp;$code"; 
@@ -257,7 +239,7 @@ elseif(username_exists($username,$conn)){
 						<div class="form-group">
 							<label class="control-label" for="signupname">Your name</label>
 							<input id="signupname" type="text" name="name" maxlength="50" class="form-control"
-								placeholder="Your Name" value="<?php echo $name ;?>">
+								placeholder="Your Name" value="<?php echo htmlspecialchars($name) ;?>">
 							<?php  echo $msg1;?>
 						</div>
 
@@ -265,13 +247,13 @@ elseif(username_exists($username,$conn)){
 							<label class="control-label" for="registernum">Your Register Number</label>
 							<input id="registernum" name="register_number" type="text" maxlength="50"
 								class="form-control" placeholder="Your full Register Number"
-								value="<?php echo $register_number; ?>">
+								value="<?php echo htmlspecialchars($register_number) ; ?>">
 							<?php  echo $msg2;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="class">Course</label>
 							<input list="class" type="text" name="class" maxlength="50" class="form-control"
-								placeholder="Class" value="<?php echo $class; ?>">
+								placeholder="Class" value="<?php echo htmlspecialchars($class); ?>">
 							<datalist id="class">
 								<option value="Bsc.Computer Science"></option>
 								<option value="Msc.Computer Science"></option>
@@ -282,19 +264,19 @@ elseif(username_exists($username,$conn)){
 						<div class="form-group">
 							<label class="control-label" for="age">Your Age</label>
 							<input id="age" type="text" name="age" maxlength="50" class="form-control"
-								placeholder="Enter your Age" value="<?php echo $age ;?>">
+								placeholder="Enter your Age" value="<?php echo htmlspecialchars($age) ;?>">
 							<?php  echo $msg26;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="dob">Your Date of Birth</label>
 							<input id="dob" type="date" name="dob" maxlength="50" class="form-control"
-								placeholder="Date of Birth" value="<?php echo $dob; ?>">
+								placeholder="Date of Birth" value="<?php echo htmlspecialchars($dob); ?>">
 							<?php  echo $msg4;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="year">Year</label>
 							<input list="year" type="text" name="yos" maxlength="50" class="form-control"
-								placeholder="Year" value="<?php echo $year; ?>">
+								placeholder="Year" value="<?php echo htmlspecialchars($year); ?>">
 							<datalist id="year">
 								<option value="FIRST YEAR"></option>
 								<option value="SECOND YEAR"></option>
@@ -305,7 +287,7 @@ elseif(username_exists($username,$conn)){
 						<div class="form-group">
 							<label class="control-label" for="batch">Batch</label>
 							<input list="batch" type="text" name="batch" maxlength="50" class="form-control"
-								placeholder="Batch" value="<?php echo $batch; ?>">
+								placeholder="Batch" value="<?php echo htmlspecialchars($batch); ?>">
 							<datalist id="batch">
 								<option value="Batch A"></option>
 								<option value="Batch B"></option>
@@ -315,7 +297,7 @@ elseif(username_exists($username,$conn)){
 						<div class="form-group">
 							<label class="control-label" for="shift">Shift</label>
 							<input list="shift" type="text" name="shift" maxlength="50" class="form-control"
-								placeholder="Enter your shift" value="<?php echo $shift ;?>">
+								placeholder="Enter your shift" value="<?php echo htmlspecialchars($shift) ;?>">
 							<datalist id="shift">
 								<option value="SHIFT-I"></option>
 								<option value="SHIFT-II"></option>
@@ -325,31 +307,31 @@ elseif(username_exists($username,$conn)){
 						<div class="form-group">
 							<label class="control-label" for="fathername">Father Name</label>
 							<input id="fathername" type="text" name="fathername" maxlength="50" class="form-control"
-								placeholder="Father Name" value="<?php echo $fathername;?>">
+								placeholder="Father Name" value="<?php echo htmlspecialchars($fathername);?>">
 							<?php  echo $msg8;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="occupation">Father Occupation</label>
 							<input id="occupation" type="text" name="occupation" maxlength="50" class="form-control"
-								placeholder="Father occupation" value="<?php echo $occupation;?>">
+								placeholder="Father occupation" value="<?php echo htmlspecialchars($occupation);?>">
 							<?php  echo $msg27;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="income">Father Annual Income</label>
 							<input id="income" type="text" name="income" maxlength="50" class="form-control"
-								placeholder="Father Income" value="<?php $income;?>">
+								placeholder="Father Income" value="<?php htmlspecialchars($income);?>">
 							<?php  echo $msg28;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="mothername">Mother Name</label>
 							<input id="mothername" type="text" name="mothername" maxlength="50" class="form-control"
-								placeholder="Mother name" value="<?php echo $mothername ;?>">
+								placeholder="Mother name" value="<?php echo htmlspecialchars($mothername) ;?>">
 							<?php  echo $msg9;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="signupEmail">Your Email</label>
 							<input id="signupEmail" type="email" name="email" maxlength="50" class="form-control"
-								placeholder="Your email" value="<?php echo $email ;?>">
+								placeholder="Your email" value="<?php echo htmlspecialchars($email) ;?>">
 							<?php echo $msg10; ?>
 							<?php echo $msg30; ?>
 							<?php echo $msg32; ?>
@@ -358,55 +340,55 @@ elseif(username_exists($username,$conn)){
 						<div class="form-group">
 							<label class="control-label" for="bloodgroup">Blood group</label>
 							<input id="blood group" type="text" name="bloodgroup" maxlength="50" class="form-control"
-								placeholder="Bloodgroup" value="<?php echo $bloodgroup ;?>">
+								placeholder="Bloodgroup" value="<?php echo htmlspecialchars($bloodgroup) ;?>">
 							<?php  echo $msg11;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="nationality">Nationality</label>
 							<input id="nationality" type="text" name="nationality" maxlength="50" class="form-control"
-								placeholder="Nationality" value="<?php echo $nationality ;?>">
+								placeholder="Nationality" value="<?php echo htmlspecialchars($nationality) ;?>">
 							<?php  echo $msg12;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="Nativity">Nativity</label>
 							<input id="nativity" type="text" name="nativity" maxlength="50" class="form-control"
-								placeholder="ex:Urban or Rural" value="<?php echo $nativity ;?>">
+								placeholder="ex:Urban or Rural" value="<?php echo htmlspecialchars($nativity) ;?>">
 							<?php  echo $msg13;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="religion">Religion</label>
 							<input id="religion" type="text" name="religion" maxlength="50" class="form-control"
-								placeholder="Religion" value="<?php echo $religion ;?>">
+								placeholder="Religion" value="<?php echo htmlspecialchars($religion) ;?>">
 							<?php  echo $msg14;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="caste">Caste</label>
 							<input id="caste" type="text" name="caste" maxlength="50" class="form-control"
-								placeholder="Caste" value="<?php echo $caste ;?>">
+								placeholder="Caste" value="<?php echo htmlspecialchars($caste) ;?>">
 							<?php  echo $msg15;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="fatherphone">Father Phone Number</label>
 							<input id="fatherph" type="text" name="fatherphone" maxlength="50" class="form-control"
-								placeholder="Father's  Mobile number" value="<?php echo $fatherphone ;?>">
+								placeholder="Father's  Mobile number" value="<?php echo htmlspecialchars($fatherphone) ;?>">
 							<?php  echo $msg16;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="motherphone">Mother Phone Number</label>
 							<input id="motherph" type="text" name="motherphone" maxlength="50" class="form-control"
-								placeholder="Mother mobile number" value="<?php echo $motherphone ;?>">
+								placeholder="Mother mobile number" value="<?php echo htmlspecialchars($motherphone) ;?>">
 							<?php  echo $msg17;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="studentphone">Student Mobile Number</label>
 							<input id="studentph" type="text" name="studentphone" maxlength="50" class="form-control"
-								placeholder="Student mobile number" value="<?php echo $studentphone ;?>">
+								placeholder="Student mobile number" value="<?php echo htmlspecialchars($studentphone) ;?>">
 							<?php  echo $msg18;?>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="address"> Your Address</label>
 							<input id="address" type="text" name="address" maxlength="150" class="form-control"
-								placeholder="Your address" value="<?php echo $address ;?>">
+								placeholder="Your address" value="<?php echo htmlspecialchars($address) ;?>">
 							<?php  echo $msg19;?>
 						</div><br>
 						<div class="form-group">

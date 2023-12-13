@@ -1,5 +1,6 @@
 <?php 
 include "../controlluserdata.php";
+include "../session.php";
 $status='';
 $login=false;
 $error1='';
@@ -18,8 +19,7 @@ $errors=array();
 		 while($row=mysqli_fetch_assoc($result)){
 			 if(password_verify($password,$row['password']))
 			 $login = true;
-        session_start();
-        session_regenerate_id(true);
+			sessionStart();
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
 		$_SESSION['email'] = $email;

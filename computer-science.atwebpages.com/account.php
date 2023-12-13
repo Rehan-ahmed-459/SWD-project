@@ -18,7 +18,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
     exit;
 }
 else {
-$username=$_SESSION['username'];
+$username=mysqli_real_escape_string($conn,$_SESSION['username']);
 $result = mysqli_query($conn,"Select id,name,register_number,class, Age, dob, yos, batch, shift, email, fathername, occupation, income ,mothername, bloodgroup,nationality,nativity,religion,caste,fatherphone,motherphone,studentphone,address,file,username from users_login where username='$username'");
 $retrive = mysqli_fetch_array($result);
 
@@ -186,12 +186,12 @@ $retrive = mysqli_fetch_array($result);
   Edit Profile
 </button></div>
                                     <h5>
-                                    <p class="proile-name">Name : <span><?php echo $name; ?></span></p>
+                                    <p class="proile-name">Name : <span><?php echo htmlspecialchars($name); ?></span></p>
                                     </h5><hr>
                                     <h6>
-                                    <p class="proile-name">Class : <span><?php echo $class ?></span></p>
+                                    <p class="proile-name">Class : <span><?php echo htmlspecialchars($class); ?></span></p>
                                     </h6><hr>
-                                    <p class="proile-name">Register Number : <span><?php echo $register_number; ?></span></p>
+                                    <p class="proile-name">Register Number : <span><?php echo htmlspecialchars($register_number); ?></span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Profile</a>
@@ -216,72 +216,72 @@ $retrive = mysqli_fetch_array($result);
       </div>
       <div class="modal-body ">
       <label class="control-label" for="signupEmail">Username</label>
-      <input class="form-control" id="disabledInput" name="username" type="text" placeholder="<?php echo $username; ?>" disabled><br>
+      <input class="form-control" id="disabledInput" name="username" type="text" placeholder="<?php echo htmlspecialchars($username); ?>" disabled><br>
       <label for="name" class="form-label">Name</label>
-<input type="text" id="name" class="form-control" name="name" aria-describedby="Nameblock" value="<?php echo ucwords($name); ?>">
+<input type="text" id="name" class="form-control" name="name" aria-describedby="Nameblock" value="<?php echo htmlspecialchars(ucwords($name)); ?>">
 <br>
       <label for="reg_number5" class="form-label">Register Number</label>
-<input type="text" id="reg_number" class="form-control" name="register_number" aria-describedby="register_numberHelpBlock" value="<?php echo $register_number; ?>"/>
+<input type="text" id="reg_number" class="form-control" name="register_number" aria-describedby="register_numberHelpBlock" value="<?php echo htmlspecialchars($register_number); ?>"/>
 <br>
       <label for="Class" class="form-label">Class</label>
-<input type="text" id="Class" class="form-control" name="class" aria-describedby="ClassHelpBlock" value="<?php echo ucwords($class); ?>">
+<input type="text" id="Class" class="form-control" name="class" aria-describedby="ClassHelpBlock" value="<?php echo htmlspecialchars(ucwords($class)); ?>">
      <br>
      <label class="control-label" for="signupEmail">Email</label>
-      <input class="form-control" id="disabledInput" name="email" type="email" placeholder="<?php echo $email; ?>" disabled>
+      <input class="form-control" id="disabledInput" name="email" type="email" placeholder="<?php echo htmlspecialchars($email); ?>" disabled>
 <br>
       <label for="Age" class="form-label">Age</label>
-<input type="text" id="Age" class="form-control" name="age" aria-describedby="AgeHelpBlock" value="<?php echo $age; ?>">
+<input type="text" id="Age" class="form-control" name="age" aria-describedby="AgeHelpBlock" value="<?php echo htmlspecialchars( $age); ?>">
 <br>
       <label for="dob" class="form-label">Date Of Birth</label>
-<input type="text" id="dob" class="form-control" name="dob" aria-describedby="DObHelpBlock" value="<?php echo $dob; ?>">
+<input type="text" id="dob" class="form-control" name="dob" aria-describedby="DObHelpBlock" value="<?php echo htmlspecialchars($dob); ?>">
 <br>
       <label for="year" class="form-label">Year Of Studying</label>
-<input type="text" id="year" class="form-control" name="yos" aria-describedby="yearHelpBlock" value="<?php echo $year; ?>">
+<input type="text" id="year" class="form-control" name="yos" aria-describedby="yearHelpBlock" value="<?php echo htmlspecialchars($year); ?>">
 <br>
       <label for="Batch" class="form-label">Batch</label>
-<input type="text" id="Batch" class="form-control" name="batch" aria-describedby="batchHelpBlock" value="<?php echo $batch; ?>">
+<input type="text" id="Batch" class="form-control" name="batch" aria-describedby="batchHelpBlock" value="<?php echo htmlspecialchars($batch); ?>">
 <br>
       <label for="shift" class="form-label">Shift</label>
-<input type="text" id="shift" class="form-control" name="shift" aria-describedby="shiftHelpBlock" value="<?php echo $shift; ?>">
+<input type="text" id="shift" class="form-control" name="shift" aria-describedby="shiftHelpBlock" value="<?php echo htmlspecialchars($shift); ?>">
 <br>
       <label for="fathername" class="form-label">Father Name</label>
-<input type="text" id="fathername" class="form-control" name="fathername" aria-describedby="FatherNameHelpBlock" value="<?php echo ucwords($fathername); ?>">
+<input type="text" id="fathername" class="form-control" name="fathername" aria-describedby="FatherNameHelpBlock" value="<?php echo htmlspecialchars(ucwords($fathername)); ?>">
 <br>
       <label for="occupation" class="form-label">Occupation</label>
-<input type="text" id="occupation" class="form-control" name="occupation" aria-describedby="OccupationHelpBlock" value="<?php echo ucfirst($occupation); ?>">
+<input type="text" id="occupation" class="form-control" name="occupation" aria-describedby="OccupationHelpBlock" value="<?php echo htmlspecialchars(ucfirst($occupation)); ?>">
 <br>
       <label for="income" class="form-label">Income</label>
-<input type="text" id="income" class="form-control" name="income" aria-describedby="incomeHelpBlock" value="<?php echo $income; ?>">
+<input type="text" id="income" class="form-control" name="income" aria-describedby="incomeHelpBlock" value="<?php echo htmlspecialchars($income); ?>">
 <br>
       <label for="mothername" class="form-label">Mother Name</label>
-<input type="text" id="mothername" class="form-control" name="mothername" aria-describedby="MotherNameHelpBlock" value="<?php echo ucwords($mothername); ?>">
+<input type="text" id="mothername" class="form-control" name="mothername" aria-describedby="MotherNameHelpBlock" value="<?php echo htmlspecialchars(ucwords($mothername)); ?>">
 <br>
       <label for="bloodgroup" class="form-label">Blood Group</label>
-<input type="text" id="bloodgroup" class="form-control" name="bloodgroup" aria-describedby="BloodHelpBlock" value="<?php echo $bloodgroup; ?>">
+<input type="text" id="bloodgroup" class="form-control" name="bloodgroup" aria-describedby="BloodHelpBlock" value="<?php echo htmlspecialchars($bloodgroup); ?>">
 <br>
       <label for="nationality" class="form-label">Nationality</label>
-<input type="text" id="nationality" class="form-control" name="nationality" aria-describedby="NationalityHelpBlock" value="<?php echo ucfirst($nationality); ?>">
+<input type="text" id="nationality" class="form-control" name="nationality" aria-describedby="NationalityHelpBlock" value="<?php echo htmlspecialchars(ucfirst($nationality)); ?>">
 <br>
       <label for="nativity" class="form-label">Nativity</label>
-<input type="text" id="nativity" class="form-control" name="nativity" aria-describedby="NativityHelpBlock" value="<?php echo ucfirst($nativity); ?>">
+<input type="text" id="nativity" class="form-control" name="nativity" aria-describedby="NativityHelpBlock" value="<?php echo htmlspecialchars(ucfirst($nativity)); ?>">
 <br>
       <label for="religion" class="form-label">Religion</label>
-<input type="text" id="religion" class="form-control" name="religion" aria-describedby="ReligionHelpBlock" value="<?php echo ucfirst($religion); ?>">
+<input type="text" id="religion" class="form-control" name="religion" aria-describedby="ReligionHelpBlock" value="<?php echo htmlspecialchars(ucfirst($religion)); ?>">
 <br>
       <label for="Caste" class="form-label">Caste</label>
-<input type="text" id="Caste" class="form-control" name="caste" aria-describedby="CasteHelpBlock" value="<?php echo $caste; ?>">
+<input type="text" id="Caste" class="form-control" name="caste" aria-describedby="CasteHelpBlock" value="<?php echo htmlspecialchars($caste); ?>">
 <br>
       <label for="fatherphone" class="form-label">Father Phone</label>
-<input type="text" id="fatherphone" class="form-control" name="fatherphone" aria-describedby="fatherphHelpBlock" value="<?php echo $fatherphone; ?>">
+<input type="text" id="fatherphone" class="form-control" name="fatherphone" aria-describedby="fatherphHelpBlock" value="<?php echo htmlspecialchars($fatherphone); ?>">
 <br>
       <label for="motherphone" class="form-label">Mother Phone</label>
-<input type="text" id="motherphone" class="form-control" name="motherphone" aria-describedby="Mother PhoneHelpBlock" value="<?php echo $motherphone; ?>">
+<input type="text" id="motherphone" class="form-control" name="motherphone" aria-describedby="Mother PhoneHelpBlock" value="<?php echo htmlspecialchars($motherphone); ?>">
 <br>
       <label for="studentphone" class="form-label">Student Phone</label>
-<input type="text" id="studentphone" class="form-control" name="studentphone" aria-describedby="Student PhoneHelpBlock" value="<?php echo $studentphone; ?>">
+<input type="text" id="studentphone" class="form-control" name="studentphone" aria-describedby="Student PhoneHelpBlock" value="<?php echo htmlspecialchars($studentphone); ?>">
 <br>
       <label for="Address" class="form-label">Address</label>
-<input type="text" id="Address" class="form-control" name="address" aria-describedby="CasteHelpBlock" value="<?php echo $address; ?>">
+<input type="text" id="Address" class="form-control" name="address" aria-describedby="CasteHelpBlock" value="<?php echo htmlspecialchars($address); ?>">
 <br>
      
       <div class="modal-footer">

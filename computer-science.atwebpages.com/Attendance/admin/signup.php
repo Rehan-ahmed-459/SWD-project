@@ -1,7 +1,7 @@
 <?php
-
+include "../../session.php";
 ob_start();
-session_start();
+sessionStart();
 
 if(!$_SESSION['authorized'] && $_SESSION['authorized'] ===TRUE)
 {

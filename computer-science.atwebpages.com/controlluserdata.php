@@ -2,7 +2,8 @@
 ob_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+include "session.php";
+sessionStart();
 require "dbconnect.php";
 $email = "";
 $name = "";

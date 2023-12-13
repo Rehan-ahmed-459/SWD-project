@@ -2,7 +2,8 @@
 error_reporting(0);
 ob_start();
 require "../../dbconnect.php";
-session_start();
+include "../../session.php";
+sessionStart();
 $msg="";
 if(!$_SESSION['authorized'] && $_SESSION['authorized'] !=TRUE)
 {

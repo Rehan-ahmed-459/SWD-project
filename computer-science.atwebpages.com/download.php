@@ -1,7 +1,16 @@
 <?php 
+error_reporting(0);
+ob_start();
 include "dbconnect.php";
 
+include 'session.php';
+sessionStart();
 
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("location: /login/");
+    session_regenerate_id(true);
+    exit;
+}
 if(isset($_GET['id']))
 {    
 	$id= $_GET['id'];
