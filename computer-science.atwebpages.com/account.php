@@ -1,6 +1,7 @@
 <?php
 $run='';
 include 'dbconnect.php';
+include 'session.php';
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
@@ -10,7 +11,7 @@ function test_input($data) {
 $showalert =false;
 $showerror=false;
 $showerror2='';
-session_start();
+sessionStart();
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
     header("location: /login/");
     session_regenerate_id(true);

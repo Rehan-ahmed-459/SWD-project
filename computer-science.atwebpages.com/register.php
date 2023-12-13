@@ -83,10 +83,7 @@ if(isset($_POST['submit'])){
    elseif(empty($mothername)){
 	   $msg9="<div class='error'>Mother name is required*</div>";
    }
-   
-//    elseif(!preg_match("/@thenewcollege.edu.in/",$email)){
-// 	   $msg32="<div class='error'>Use Your Institutional Email id</div>";
-//    }
+
    
    elseif(email_exists($email,$conn)){
 	   $msg30="<div class='error'>Email Already exists</div>";

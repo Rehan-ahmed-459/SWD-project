@@ -1,52 +1,65 @@
 <?php 
-session_start();
-if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
+include 'session.php';
+ob_start();
+sessionStart();
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("location: /login/");
     session_regenerate_id(true);
     exit;
 }
-$msg ='';
-$username=$_SESSION['username'];
-$errors =array();
-$header= "deposition";
+
+$msg = '';
+$username = $_SESSION['username'];
+$errors = array();
+$header = "deposition";
 include "dbconnect.php";
 
+if (isset($_POST['submit'])) {
+    $semester = test_input(mysqli_real_escape_string($conn, $_POST['sem']));
 
-if(isset($_POST['submit'])){
-  $semester =test_input(mysqli_real_escape_string($conn,$_POST['sem']));
-  $Report_card= $_FILES['file']['name'];
-  $tmp_file =$_FILES['file']['tmp_name'];
- 
+    if (empty($semester)) {
+        $errors['Semester-field'] = "<div class='error'>Semester is required*</div>";
+    } else {
+        //checking file types
+        $allowedFileTypes = ['pdf', 'jpeg', 'jpg', 'png'];
+        $fileExtension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 
-  if(empty($semester)){
-    $errors['Semester-field']="<div class='error'>Semester  is required*</div>";
-  }
-  else{ 
-		$file_ext= explode(".",$Report_card);
-		$file_exten= $file_ext['1'];
-		$Report_card =rand(1,10000).rand(1,1000).time().".".$file_exten;
-  }		
-		if($file_exten=='pdf' || $file_exten=='PDF' || $file_exten=='jpeg' || $file_exten=='JPEG' || $file_exten=='PNG' || $file_exten=='png'){
-            move_uploaded_file($tmp_file,"results/$Report_card");
-            $sql ="INSERT INTO list_files(id,username,Semester,file_name,action,dt) VALUES (NULL,'$username','$semester','$Report_card','$header',CURRENT_TIMESTAMP)";
-            $result=mysqli_query($conn,$sql);
-            if($result){
-              $msg=  "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-              <strong>Success!</strong> File Uploaded SuccessFully!
-              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                <span aria-hidden='true'>&times;</span>
-              </button>
-            </div>";
-              
-            }
-                   
+        if (!in_array(strtolower($fileExtension), $allowedFileTypes)) {
+            $errors['file-type'] = 'Invalid file type. Only PDF, JPEG, and PNG files are allowed.';
+        }
+
+        //checking file size
+        $maxFileSize = 2 * 1024 * 1024; // 2 MB
+
+        if ($_FILES['file']['size'] > $maxFileSize) {
+            $errors['file-size'] = 'File size exceeds the limit (2 MB).';
+        }
+        $uniquefilename = md5(uniqid(rand(), true)) . '_' . time() . '.' . $fileExtension;//generating random file name 
+
+        // Move file to secure directory
+        $uploadDirectory = '/path/to/secure/directory/';
+
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadDirectory . $uniquegilename)) {
+            // Insert into database using prepared statement
+            $sql = "INSERT INTO list_files (id, username, Semester, file_name, action, dt) VALUES (NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+            $stmt = mysqli_prepare($conn, $sql);
+
+            mysqli_stmt_bind_param($stmt, "ssss", $username, $semester, $uniquefilename, $header);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+
+            $msg = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                    <strong>Success!</strong> File Uploaded Successfully!
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>";
+        } else {
+            $errors['upload-error'] = 'Error uploading the file. Please try again.';
+        }
+    }
 }
-else{
-  $errors['db-error'] ='Please Only Upload PDF and JPEG Format Files';
- 
-}  
-}
-
   
 
 ?>
