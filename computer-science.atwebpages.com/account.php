@@ -13,7 +13,7 @@ $showerror=false;
 $showerror2='';
 sessionStart();
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
-    header("location: /login/");
+    header("location: ./login/");
     session_regenerate_id(true);
     exit;
 }

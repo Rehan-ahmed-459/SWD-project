@@ -1,6 +1,7 @@
 <?php 
 include "../controlluserdata.php";
-include "../session.php";
+require_once "../session.php";
+
 $status='';
 $login=false;
 $error1='';
@@ -44,7 +45,7 @@ $errors=array();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V5</title>
+	<title>Login </title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	

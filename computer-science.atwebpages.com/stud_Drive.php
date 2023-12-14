@@ -5,8 +5,8 @@ include 'session.php';
 sessionStart();
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("location: /login/");
-    session_regenerate_id(true);
+    header("location: ./login");
+
     exit;
 }
 

@@ -26,7 +26,7 @@ function sessionStart() {
         // performing this necessary actions (logout)
         session_unset();
         session_destroy();
-        header("Location: /login"); // redirect to login page
+        header("Location: ./login/"); // redirect to login page
         exit();
     } else {
         
