@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 ob_start();
 include "../../session.php";
 sessionStart();
@@ -39,15 +39,6 @@ if(!$_SESSION['authorized'] && $_SESSION['authorized'] !=TRUE)
 
 <?php include "../att-navbar.php" ?>
 
-  <!-- <div class="navbar">
-  <a href="index.php" style="text-decoration:none;">Home</a>
-  <a href="students.php" style="text-decoration:none;">Students</a>
-  <a href="teachers.php" style="text-decoration:none;">Faculties</a>
-  <a href="attendance.php" style="text-decoration:none;">Attendance</a>
-  <a href="report.php" style="text-decoration:none;">Report</a>
-  <a href="../logout.php" style="text-decoration:none;">Logout</a>
-
-</div> -->
 
 
 
@@ -80,11 +71,11 @@ if(!$_SESSION['authorized'] && $_SESSION['authorized'] !=TRUE)
         ?>
           <tbody>
               <tr>
-                <td><?php echo $tcr_data['tc_id']; ?></td>
-                <td><?php echo $tcr_data['tc_name']; ?></td>
-                <td><?php echo $tcr_data['tc_dept']; ?></td>
-                <td><?php echo $tcr_data['tc_email']; ?></td>
-                <td><?php echo $tcr_data['tc_course']; ?></td>
+                <td><?php echo htmlspecialchars($tcr_data['tc_id']); ?></td>
+                <td><?php echo htmlspecialchars($tcr_data['tc_name']); ?></td>
+                <td><?php echo htmlspecialchars($tcr_data['tc_dept']); ?></td>
+                <td><?php echo htmlspecialchars($tcr_data['tc_email']); ?></td>
+                <td><?php echo htmlspecialchars($tcr_data['tc_course']); ?></td>
               </tr>
           </tbody>
 

@@ -1,4 +1,5 @@
 <?php 
+error_reporting(0);
 ob_start();
 require "../../dbconnect.php";
 include "../../session.php";

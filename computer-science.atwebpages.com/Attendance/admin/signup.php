@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include "../../session.php";
 ob_start();
 sessionStart();
@@ -42,16 +43,38 @@ include('connect.php');
                      throw new Exception("Username cann't be empty.");
                   }
 
-        //insertion of data to database table admininfo
-        $result = mysqli_query($con,"insert into admininfo(username,password,email,fname,phone,type) values('$_POST[uname]','$_POST[pass]','$_POST[email]','$_POST[fname]','$_POST[phone]','$_POST[type]')");
-        $success_msg="<div class='alert alert-success alert-dismissible fade in show' role='alert'>
-        <strong>Success!</strong> User has been Created!
-        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-          <span aria-hidden='true'>&times;</span>
-        </button>
-      </div>";
+        
+        $stmt = mysqli_prepare($con, "INSERT INTO admininfo (username, password, email, fname, phone, type) VALUES (?, ?, ?, ?, ?, ?)");
+        if ($stmt) {
+            $hashedPassword = password_hash($_POST['pass'], PASSWORD_DEFAULT);
+            mysqli_stmt_bind_param($stmt, "ssssss", $_POST['uname'], $hashedPassword, $_POST['email'], $_POST['fname'], $_POST['phone'], $_POST['type']);
 
-  
+            $result = mysqli_stmt_execute($stmt);
+            if ($result) {
+                $success_msg = "<div class='alert alert-success alert-dismissible fade in show' role='alert'>
+                    <strong>Success!</strong> User has been Created!
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                      <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>";
+            } else {
+                $error_msg = "<div class='alert alert-danger alert-dismissible fade in show' role='alert'>
+                    <strong>Error!</strong> Unable to create user. Please try again.
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                      <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>";
+            }
+            mysqli_stmt_close($stmt);
+        } else {
+            $error_msg = "<div class='alert alert-danger alert-dismissible fade in show' role='alert'>
+                <strong>Error!</strong> Unable to create user. Please try again.
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                  <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>";
+        }
+      
   }
 }
   catch(Exception $e){
