@@ -1,5 +1,5 @@
   <?php
-
+include "connect.php";
   ob_start();
   include "../../session.php";
   sessionStart();
@@ -48,12 +48,22 @@ try{
                         
                       }
 
-  //initializing the student id
-  $sid = $_POST['id'];
 
-  //udating students information to database table "students"
-  $result = mysqli_query("update students set st_name='$_POST[name]',st_dept='$_POST[dept]',st_batch='$_POST[batch]',st_sem='$_POST[semester]', st_email = '$_POST[email]' where st_id='$sid'");
-  $success_msg = 'Updated  successfully';
+  $sid = mysqli_real_escape_string($con,$_POST['id']);
+
+  $stmt = mysqli_prepare($con, "UPDATE students SET st_name=?, st_dept=?, st_batch=?, st_sem=?, st_email=? WHERE st_id=?");
+  if ($stmt) {  
+      mysqli_stmt_bind_param($stmt, "sssssi", $_POST['name'], $_POST['dept'], $_POST['batch'], $_POST['semester'], $_POST['email'], $sid);
+      $result = mysqli_stmt_execute($stmt);
+      if ($result) {
+          $success_msg = 'Updated successfully';
+      } else {
+          $error_msg = 'Error updating student information: ' . mysqli_stmt_error($stmt);
+      }
+      mysqli_stmt_close($stmt);
+  } else {
+      $error_msg = 'Error preparing statement: ' . mysqli_error($con);
+  }
   
   }
 
@@ -126,7 +136,7 @@ catch(Exception $e){
 
           if(isset($success_msg))
           {
-            echo $success_msg;
+            echo '<b>'.$success_msg.'</b>';
           }
           if(isset($error_msg))
           {
@@ -155,7 +165,7 @@ catch(Exception $e){
       if(isset($_POST['sr_btn'])){
 
       //initializing student ID from form data
-       $sr_id = $_POST['sr_id'];
+       $sr_id = mysqli_real_escape_string($con,$_POST['sr_id']);
 
        $i=0;
 
@@ -170,34 +180,34 @@ catch(Exception $e){
   
           <tr>
             <td>Registration No.:</td>
-            <td><?php echo $data['st_id']; ?></td>
+            <td><?php echo htmlspecialchars($data['st_id']); ?></td>
           </tr>
 
           <tr>
               <td>Student's Name:</td>
-              <td><input type="text" name="name" value="<?php echo $data['st_name']; ?>"></input></td>
+              <td><input type="text" name="name" value="<?php echo htmlspecialchars($data['st_name']); ?>"></input></td>
           </tr>
 
           <tr>
               <td>Department:</td>
-              <td><input type="text" name="dept" value="<?php echo $data['st_dept']; ?>"></input></td>
+              <td><input type="text" name="dept" value="<?php echo htmlspecialchars($data['st_dept']); ?>"></input></td>
           </tr>
 
           <tr>
               <td>Batch:</td>
-              <td><input type="text" name="batch" value="<?php echo $data['st_batch']; ?>"></input></td>
+              <td><input type="text" name="batch" value="<?php echo htmlspecialchars($data['st_batch']); ?>"></input></td>
           </tr>
           
           <tr>
               <td>Semester:</td>
-              <td><input type="text" name="semester" value="<?php echo $data['st_sem']; ?>"></input></td>
+              <td><input type="text" name="semester" value="<?php echo htmlspecialchars($data['st_sem']); ?>"></input></td>
           </tr>
 
           <tr>
               <td>Email:</td>
-              <td><input type="text" name="email" value="<?php echo $data['st_email']; ?>"></input></td>
+              <td><input type="text" name="email" value="<?php echo htmlspecialchars($data['st_email']); ?>"></input></td>
           </tr>
-          <input type="hidden" name="id" value="<?php echo $sr_id; ?>">
+          <input type="hidden" name="id" value="<?php echo htmlspecialchars($sr_id); ?>">
           
           <tr><td></td></tr>
           <tr>
