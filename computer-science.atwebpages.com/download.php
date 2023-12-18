@@ -5,7 +5,12 @@ include "dbconnect.php";
 
 include 'session.php';
 sessionStart();
-
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("location: /login/");
     session_regenerate_id(true);
@@ -17,8 +22,10 @@ if(isset($_GET['id']))
 	// $filepath = 'results/' . $filename;
     $q = mysqli_query($conn,"select * from list_files where id=$id");
     $data = mysqli_fetch_array($q);
+   $name=test_input($data['file_name']);
+   
 
-    $file='results/'.$data['file_name'];
+    $file='results/'.$name;
    
     
 	

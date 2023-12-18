@@ -1,5 +1,6 @@
 <?php require_once "controlluserdata.php"; ?>
 <?php 
+error_reporting(0);
 // $email = $_SESSION['email'];
 // if($email == false){
 //   header('Location: /my web/login/');
