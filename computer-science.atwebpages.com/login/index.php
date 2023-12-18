@@ -1,4 +1,5 @@
 <?php 
+error_reporting(0);
 include "../controlluserdata.php";
 require_once "../session.php";
 

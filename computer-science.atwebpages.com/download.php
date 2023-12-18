@@ -13,7 +13,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 if(isset($_GET['id']))
 {    
-	$id= $_GET['id'];
+	$id= mysqli_real_escape_string($conn,$_GET['id']);
 	// $filepath = 'results/' . $filename;
     $q = mysqli_query($conn,"select * from list_files where id=$id");
     $data = mysqli_fetch_array($q);

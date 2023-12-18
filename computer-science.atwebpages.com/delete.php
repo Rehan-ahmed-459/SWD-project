@@ -1,4 +1,5 @@
 <?php 
+error_reporting(0);
 session_start();
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
     header("location: /login/");
@@ -10,7 +11,7 @@ include "dbconnect.php";
 
 if(isset($_GET['id']))
 {    
-	$id= $_GET['id'];
+	$id= mysqli_real_escape_string($conn,$_GET['id']);
 
 	
     $q = mysqli_query($conn,"DELETE FROM `list_files` WHERE `id`=$id");
