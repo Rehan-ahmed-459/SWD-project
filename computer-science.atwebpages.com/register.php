@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 ob_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -148,7 +149,7 @@ elseif(username_exists($username,$conn)){
 	$sql = "INSERT INTO users_login (id, name, register_number, class,Age, dob, yos, batch, shift,email ,fathername,occupation,income,mothername, bloodgroup,nationality, nativity, religion, caste, fatherphone, motherphone, studentphone, address, file, username, password, cpassword,code,status) VALUES (NULL, '$name', '$register_number', '$class','$age', '$dob', '$year', '$batch', '$shift','$email','$fathername','$occupation','$income', '$mothername', '$bloodgroup', '$nationality', '$nativity', '$religion', '$caste', '$fatherphone', '$motherphone', '$studentphone', '$address', '$image', '$username', '$pass', '$cpassword','$code','$status')";
 	$result = (mysqli_query($conn,$sql)); 
 		
-		}
+		
 	
 		
 	if($result){
@@ -162,7 +163,7 @@ elseif(username_exists($username,$conn)){
             $header .="Content-type:text/html;charset=UTF-8"."\r\n";
             $mail = mail($to,$subject,$Message,$header);
        
-	}
+	
 
     
     if($mail){
@@ -178,8 +179,8 @@ elseif(username_exists($username,$conn)){
                 exit();
  
             }
-            
-            else{
+		}   
+	}   else{
                 $errors['otp-error'] = "Failed while sending code!";
             }
         }

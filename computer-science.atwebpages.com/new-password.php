@@ -1,6 +1,6 @@
 <?php include "dbconnect.php"; 
 include "controlluserdata.php";
-
+error_reporting(0);
 $email = $_SESSION['email'];
 if($email == false){
   header('Location: /login/');

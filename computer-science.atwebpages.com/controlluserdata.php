@@ -1,4 +1,5 @@
 <?php 
+error_reporting(0);
 ob_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

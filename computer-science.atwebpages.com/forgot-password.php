@@ -1,5 +1,6 @@
 <?php include "dbconnect.php";
 include "controlluserdata.php";
+error_reporting(0);
 $msg1='';
 $msg2='';
 $msg3='';

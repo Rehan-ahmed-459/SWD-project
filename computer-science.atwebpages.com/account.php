@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $run='';
 include 'dbconnect.php';
 include 'session.php';
