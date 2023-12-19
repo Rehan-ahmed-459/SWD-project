@@ -9,36 +9,36 @@ $error1='';
 $error2 ='';
 $errors=array();
 
- if(isset($_POST['submit'])){
-	include "../dbconnect.php";
-	$username = test_input(mysqli_real_escape_string($conn,$_POST["username"]));
-    $password = test_input(mysqli_real_escape_string($conn,$_POST["password"])); 
-           
-    $sql = "Select * from users_login where username='$username'";
-    $result = mysqli_query($conn, $sql);
-    $num = mysqli_num_rows($result);
-    if ($num == 1){
-		 while($row=mysqli_fetch_assoc($result)){
-			 if(password_verify($password,$row['password']))
-			 $login = true;
-			sessionStart();
-        $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $username;
-		$_SESSION['email'] = $email;
-		header("location: ../account.php");
+if (isset($_POST['submit'])) {
+    include "../dbconnect.php";
+    $username = test_input(mysqli_real_escape_string($conn, $_POST["username"]));
+    $password = test_input(mysqli_real_escape_string($conn, $_POST["password"]));
 
-		 }
-		
-		 
-		}
-		
- 
-		
-		else {
-			$error2="<div class='error'>Username or Password is invalid</div>";
-		}
-		 
-	}
+    $sql = "SELECT * FROM users_login WHERE username = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $num = mysqli_num_rows($result);
+
+    if ($num == 1) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            if (password_verify($password, $row['password'])) {
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['username'] = $username;
+                $_SESSION['email'] = $email;
+                header("location: ../account.php");
+            }
+			else{
+				$error2 = "<div class='error'>Username or Password is invalid</div>";
+			}
+        }
+    } else {
+        $error2 = "<div class='error'>Username or Password is invalid</div>";
+    }
+}
 	
 
 ?>
