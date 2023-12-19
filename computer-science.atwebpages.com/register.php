@@ -424,7 +424,7 @@ elseif(username_exists($username,$conn)){
 						<p class="form-group">By creating an account, you agree to our <a href="#">Terms of Use</a> and
 							our <a href="#">Privacy Policy</a>.</p>
 						<hr>
-						<p></p>Already have an account? <a href="login.php">Sign in</a></p>
+						<p></p>Already have an account? <a href="./login/">Sign in</a></p>
 					</form>
 				</div>
 			</div>
